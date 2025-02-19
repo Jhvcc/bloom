@@ -5,7 +5,7 @@ import PlayIcon from "./PlayIcon";
 
 const PartOfSpeechBadge = (props: { pos: string }) => {
   return (
-    <div className=" bg-gray-400 px-2 py-0.5 rounded-lg text-white font-bold flex justify-center items-center w-14">
+    <div className="bg-gray-400 px-2 py-0.5 rounded-lg text-white font-bold flex justify-center items-center w-14 flex-shrink-0">
       <text className=" after:content-['.']">{props.pos}</text>
     </div>
   )
@@ -23,9 +23,9 @@ const PartOfSpeechArea = (props: PartOfSpeech) => {
 
 const PartOfSpeechLine = (props: { explain: string, pos: string }) => {
   return (
-    <div className="flex flex-row items-center gap-3 text-sm">
+    <div className="flex flex-row items-start gap-3 text-sm">
       <PartOfSpeechBadge pos={props.pos} />
-      <div>{props.explain}</div>
+      <div className="flex-1 break-all pt-1">{props.explain}</div>
     </div>
   )
 }
@@ -39,7 +39,7 @@ const TranslationCard = (props: TranslationData) => {
   }
 
   return (
-    <div className="bg-slate-900 absolute w-80 h-40 py-2 px-4 rounded-lg text-white font-medium">
+    <div className="bg-slate-900 absolute w-80 h-auto p-4 rounded-lg text-white font-medium overflow-y-auto">
       <div>
         <div className="flex flex-col gap-1">
           <div className="drag-handle"></div>

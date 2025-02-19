@@ -33,6 +33,10 @@ async function request(req: NextRequest, apiKey: string) {
   const body: Body = await req.json();
   const words = body.words;
 
+  if (words.length === 0) {
+    return NextResponse.json({ error: "Words are required" }, { status: 400 });
+  }
+
   const controller = new AbortController();
   const baseUrl = GEMINI_BASE_URL;
   const timeoutId = setTimeout(() => {
@@ -70,8 +74,6 @@ async function request(req: NextRequest, apiKey: string) {
     signal: controller.signal,
   }
 
-  
-
   try {
     const res = await fetch(fetchUrl, fetchOptions);
     // to prevent browser prompt for credentials
@@ -82,7 +84,12 @@ async function request(req: NextRequest, apiKey: string) {
 
     const data = await res.json();
     const story = data.candidates[0].content.parts[0];
-    return new Response(JSON.stringify(story), {
+    const storyData = {
+      id: crypto.randomUUID(),
+      word: words[0],
+      story: story.text,
+    }
+    return new Response(JSON.stringify(storyData), {
       status: res.status,
       statusText: res.statusText,
       headers: newHeaders,
