@@ -1,35 +1,33 @@
 import PlayIcon from "./PlayIcon";
-import { Skeleton } from "./ui/skeleton";
 
 const TranslationCardSkeleton = () => {
   return (
     <div className="bg-slate-900 w-80 h-auto p-4 rounded-lg text-white font-medium overflow-y-auto">
-      <div>
-        <div className="flex flex-col gap-1">
-          <div className="drag-handle"></div>
-          <Skeleton className="w-full h-full" />
-          <div className="flex flex-row items-center gap-2 font-light text-gray-300 pb-1">
-            <Skeleton className="h-full" />
+      <div className="flex flex-col gap-1">
+        <div className="drag-handle"></div>
+        {/* Word skeleton */}
+        <div className="h-8 w-32 bg-slate-700 rounded animate-pulse"></div>
+        
+        {/* Phonetic skeleton */}
+        <div className="flex flex-row items-center gap-2 pb-1">
+          <div className="h-5 w-24 bg-slate-700 rounded animate-pulse"></div>
+          <div className="animate-pulse">
             <PlayIcon />
           </div>
-          <div className="flex flex-col gap-2.5">
-          <div className="flex flex-row items-start gap-3 text-sm">
-            <div className="bg-gray-400 px-2 py-0.5 rounded-lg text-white font-bold flex justify-center items-center w-14 flex-shrink-0">
-              <Skeleton className="w-full h-full" />
+        </div>
+        
+        {/* Part of speech lines */}
+        <div className="flex flex-col gap-2.5 mt-1">
+          {[1, 2, 3].map((i) => (
+            <div key={i} className="flex flex-row items-start gap-3">
+              <div className="h-6 w-14 bg-slate-700 rounded animate-pulse flex-shrink-0"></div>
+              <div className="flex-1 h-6 bg-slate-700 rounded animate-pulse"></div>
             </div>
-            <Skeleton className="w-full h-full" />
-          </div>
-          <div className="flex flex-row items-start gap-3 text-sm">
-            <div className="bg-gray-400 px-2 py-0.5 rounded-lg text-white font-bold flex justify-center items-center w-14 flex-shrink-0">
-              <Skeleton className="w-full h-full" />
-            </div>
-            <Skeleton className="w-full h-full" />
-          </div>
-          </div>
+          ))}
         </div>
       </div>
     </div>
   )
-};
+}
 
 export default TranslationCardSkeleton;
