@@ -1,5 +1,7 @@
 import { UKAccent, USAccent } from "@/types/dictionary";
 
+export const API_PREFIX = process.env.API_PREFIX || "";
+
 export const GEMINI_BASE_URL = "https://generativelanguage.googleapis.com/";
 export const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 
