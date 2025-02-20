@@ -1,9 +1,9 @@
 'use client';
 
-import { removeNonAlpha } from "@/utils/alpha";
 import { useState } from "react";
 import TranslationCard from "./TranslationCard";
 import { TranslationData } from "@/types/dictionary";
+import { removeNonAlpha } from "@/utils/alpha";
 import { fetchTranslation } from "@/services/translation";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "./ui/hover-card";
 

@@ -15,7 +15,7 @@ interface Stories {
 const StoryList = (props: Stories) => {
   const { stories } = props;
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 isolate">
       {stories.map((story) => (
         <StoryItem key={story.id} {...story} />
       ))}
@@ -25,7 +25,7 @@ const StoryList = (props: Stories) => {
 
 const StoryItem = (props: Story) => {
   return (
-    <div className="bg-white rounded-lg shadow-md p-6 transform transition-all duration-300 hover:shadow-lg hover:-translate-y-1 relative z-0">
+    <div className="bg-white rounded-lg shadow-md p-6">
       <div className="flex justify-between items-start mb-4">
         <h3 className="text-xl font-semibold text-purple-600 capitalize">{props.word}</h3>
         <div className="flex gap-2">
