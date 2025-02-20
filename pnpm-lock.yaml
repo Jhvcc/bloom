@@ -11,6 +11,9 @@ importers:
       '@radix-ui/react-hover-card':
         specifier: ^1.1.6
         version: 1.1.6(@types/react-dom@19.0.4(@types/react@19.0.10))(@types/react@19.0.10)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      '@tanstack/react-query':
+        specifier: ^5.66.7
+        version: 5.66.7(react@19.0.0)
       class-variance-authority:
         specifier: ^0.7.1
         version: 0.7.1
@@ -726,6 +729,14 @@ packages:
 
   '@swc/helpers@0.5.15':
     resolution: {integrity: sha512-JQ5TuMi45Owi4/BIMAJBoSQoOJu12oOk/gADqlcUL9JEdHB8vyjUSsxqeNXnmXHjYKMi2WcYtezGEEhqUI/E2g==, tarball: https://registry.npmjs.org/@swc/helpers/-/helpers-0.5.15.tgz}
+
+  '@tanstack/query-core@5.66.4':
+    resolution: {integrity: sha512-skM/gzNX4shPkqmdTCSoHtJAPMTtmIJNS0hE+xwTTUVYwezArCT34NMermABmBVUg5Ls5aiUXEDXfqwR1oVkcA==, tarball: https://registry.npmjs.org/@tanstack/query-core/-/query-core-5.66.4.tgz}
+
+  '@tanstack/react-query@5.66.7':
+    resolution: {integrity: sha512-qd3q/tUpF2K1xItfPZddk1k/8pSXnovg41XyCqJgPoyYEirMBtB0sVEVVQ/CsAOngzgWtBPXimVf4q4kM9uO6A==, tarball: https://registry.npmjs.org/@tanstack/react-query/-/react-query-5.66.7.tgz}
+    peerDependencies:
+      react: ^18 || ^19
 
   '@types/estree@1.0.6':
     resolution: {integrity: sha512-AYnb1nQyY49te+VRAVgmzfcgjYS91mY5P0TKUDCLEM+gNnA+3T6rWITXRLYCpahpqSQbN5cE+gHpnPyXjHWxcw==, tarball: https://registry.npmjs.org/@types/estree/-/estree-1.0.6.tgz}
@@ -2758,6 +2769,13 @@ snapshots:
   '@swc/helpers@0.5.15':
     dependencies:
       tslib: 2.8.1
+
+  '@tanstack/query-core@5.66.4': {}
+
+  '@tanstack/react-query@5.66.7(react@19.0.0)':
+    dependencies:
+      '@tanstack/query-core': 5.66.4
+      react: 19.0.0
 
   '@types/estree@1.0.6': {}
 

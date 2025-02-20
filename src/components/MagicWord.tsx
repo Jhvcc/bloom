@@ -1,20 +1,22 @@
 'use client';
 
-import { useState } from "react";
 import TranslationCard from "./TranslationCard";
 import { TranslationData } from "@/types/dictionary";
 import { removeNonAlpha } from "@/utils/alpha";
 import { fetchTranslation } from "@/services/translation";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "./ui/hover-card";
+import { useMutation } from "@tanstack/react-query";
+import TranslationCardSkeleton from "./TranslationCard.skeleton";
 
 const MagicWord = ({word}: {word: string}) => {
-  const [translationData, setTranslationData] = useState<TranslationData | null>(null);
+  const mutation = useMutation({
+    mutationFn: fetchTranslation,
+  })
 
   const handleTranslate = async () => {
     console.log('handleTranslate');
     const cleanWord = removeNonAlpha(word);
-    const { data } = await fetchTranslation(cleanWord);
-    setTranslationData(data);
+    mutation.mutate(cleanWord);
   }
 
   return (
@@ -33,7 +35,10 @@ const MagicWord = ({word}: {word: string}) => {
             </div>
           </HoverCardTrigger>
           <HoverCardContent>
-            { translationData && <TranslationCard {...translationData} /> }
+            { mutation.isPending 
+              ? <TranslationCardSkeleton />
+              : <TranslationCard {...mutation.data?.data as TranslationData} /> 
+            }
           </HoverCardContent>
         </HoverCard>
       </span>

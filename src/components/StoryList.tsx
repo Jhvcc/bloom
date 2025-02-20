@@ -1,6 +1,9 @@
+'use client';
+
 import { Trash2, Wand2 } from 'lucide-react';
 import React from 'react';
 import MagicWord from './MagicWord';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 interface Story {
   id: string;
@@ -12,14 +15,18 @@ interface Stories {
   stories: Story[];
 }
 
+const queryClient = new QueryClient();
+
 const StoryList = (props: Stories) => {
   const { stories } = props;
   return (
-    <div className="space-y-4 isolate">
-      {stories.map((story) => (
-        <StoryItem key={story.id} {...story} />
-      ))}
-    </div>
+    <QueryClientProvider client={queryClient}>
+      <div className="space-y-4 isolate">
+        {stories.map((story) => (
+          <StoryItem key={story.id} {...story} />
+        ))}
+      </div>
+    </QueryClientProvider>
   )
 }
 
