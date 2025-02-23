@@ -3,6 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 const readDictionary = async (name: string) => {
   const url = `${STATIC_BASE_URL}/${name}.json`;
+  return NextResponse.json({url});
   const dictionary = await fetch(url, {
     headers: {
       'Content-Type': 'application/json',
