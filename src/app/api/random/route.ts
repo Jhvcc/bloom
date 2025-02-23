@@ -9,7 +9,7 @@ export const GET = handle;
 async function handle(req: NextRequest) {
   const { searchParams } = new URL(req.url);
   const random_count = Number(searchParams.get("count") || DAILY_WORDS_COUNT);
-  const random_words = randomWords(random_count);
+  const random_words = await randomWords(random_count);
   
   return NextResponse.json({ random_words });
 }

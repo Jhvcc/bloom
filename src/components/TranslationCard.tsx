@@ -45,7 +45,10 @@ const TranslationCard = (props: TranslationData) => {
           <div className="drag-handle"></div>
           <div className="text-2xl">{props.word}</div>
           <div className="flex flex-row items-center gap-2 font-light text-gray-300 pb-1">
-            <span className="before:content-['/'] after:content-['/']">{props.uk.phonetic}</span>
+            {props.uk?.phonetic ?
+              <span className="before:content-['/'] after:content-['/']">{props.uk.phonetic}</span>
+              : <span></span>
+            }
             <button 
               onClick={() => playAudio(props.uk.audio)}
               className="border-0 bg-transparent p-0 cursor-pointer"

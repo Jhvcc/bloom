@@ -3,30 +3,24 @@
 import { Trash2, Wand2 } from 'lucide-react';
 import React from 'react';
 import MagicWord from './MagicWord';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-
-interface Story {
+export interface Story {
   id: string;
   word: string;
   story: string;
 }
 
-interface Stories {
+export interface Stories {
   stories: Story[];
 }
-
-const queryClient = new QueryClient();
 
 const StoryList = (props: Stories) => {
   const { stories } = props;
   return (
-    <QueryClientProvider client={queryClient}>
-      <div className="space-y-4 isolate">
-        {stories.map((story) => (
-          <StoryItem key={story.id} {...story} />
-        ))}
-      </div>
-    </QueryClientProvider>
+    <div className="space-y-4 isolate">
+      {stories.map((story) => (
+        <StoryItem key={story.id} {...story} />
+      ))}
+    </div>
   )
 }
 
@@ -35,7 +29,7 @@ const StoryItem = (props: Story) => {
     <div className="bg-white rounded-lg shadow-md p-6">
       <div className="flex justify-between items-start mb-4">
         <h3 className="text-xl font-semibold text-purple-600 capitalize">{props.word}</h3>
-        <div className="flex gap-2">
+        {/* <div className="flex gap-2">
           <button
             className="p-2 text-gray-600 hover:text-purple-600 transition-colors"
             title="Regenerate story"
@@ -48,7 +42,7 @@ const StoryItem = (props: Story) => {
           >
             <Trash2 className='h-5 w-5' />
           </button>
-        </div>
+        </div> */}
       </div>
       <StoryText text={props.story} />
     </div>

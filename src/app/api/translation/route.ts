@@ -37,8 +37,7 @@ const handleYoudao = async (word: string): Promise<TranslationData> => {
 const handleXxapi = async (word: string) => {
   const xxapiRes = await xxapiTr.translate(word);
   if (xxapiRes.code !== 200) {
-    throw new Error('Failed to use xxapi to translate', xxapiRes);
-  }
+    throw new Error(`Failed to use xxapi to translate: ${JSON.stringify(xxapiRes)}`);}
   const { data } = xxapiRes;
   const suggest = xxapiTr.cleanTranslation(word, data.translations);
   const resData = {

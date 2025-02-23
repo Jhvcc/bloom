@@ -66,7 +66,7 @@ const getAccessToken = (isPublicAPI?: boolean) => {
   }
 }
 
-const baseFetch = async<T = any>(
+const baseFetch = async<T>(
   url: string, 
   fetchOptions: FetchOptionType,
   {
@@ -183,7 +183,7 @@ const baseFetch = async<T = any>(
   ]) as Promise<T>
 }
 
-export const request = async<T=any>(url: string, options = {}, otherOptions?: IOtherOptions) => {
+export const request = async<T>(url: string, options = {}, otherOptions?: IOtherOptions) => {
   try {
     const otherOptionsForBaseFetch = otherOptions || {};
     const [err, resp] = await asyncRunSafe<T>(baseFetch(url, options, otherOptionsForBaseFetch))
@@ -199,7 +199,7 @@ export const request = async<T=any>(url: string, options = {}, otherOptions?: IO
         return Promise.reject(err)
       }
       // special code
-      const {code, message} = errRespData
+      const { code } = errRespData
       // webapp sso
       if (code === 'web_sso_auth_required') {
         requiredWebSSOLogin()
@@ -255,44 +255,44 @@ export const request = async<T=any>(url: string, options = {}, otherOptions?: IO
 }
 
 // request methods
-export const get = <T = any>(url: string, options = {}, otherOptions?: IOtherOptions) => {
+export const get = <T>(url: string, options = {}, otherOptions?: IOtherOptions) => {
   return request<T>(url, Object.assign({}, options, { method: 'GET' }), otherOptions)
 }
 
 // For public API
-export const getPublic = <T = any>(url: string, options = {}, otherOptions?: IOtherOptions) => {
+export const getPublic = <T>(url: string, options = {}, otherOptions?: IOtherOptions) => {
   return get<T>(url, options, { ...otherOptions, isPublicAPI: true })
 }
 
-export const post = <T = any>(url: string, options = {}, otherOptions?: IOtherOptions) => {
+export const post = <T>(url: string, options = {}, otherOptions?: IOtherOptions) => {
   return request<T>(url, Object.assign({}, options, { method: 'POST' }), otherOptions)
 }
 
 // For public API
-export const postPublic = <T = any>(url: string, options = {}, otherOptions?: IOtherOptions) => {
+export const postPublic = <T>(url: string, options = {}, otherOptions?: IOtherOptions) => {
   return post<T>(url, options, { ...otherOptions, isPublicAPI: true })
 }
 
-export const put = <T = any>(url: string, options = {}, otherOptions?: IOtherOptions) => {
+export const put = <T>(url: string, options = {}, otherOptions?: IOtherOptions) => {
   return request<T>(url, Object.assign({}, options, { method: 'PUT' }), otherOptions)
 }
 
-export const putPublic = <T = any>(url: string, options = {}, otherOptions?: IOtherOptions) => {
+export const putPublic = <T>(url: string, options = {}, otherOptions?: IOtherOptions) => {
   return put<T>(url, options, { ...otherOptions, isPublicAPI: true })
 }
 
-export const del = <T = any>(url: string, options = {}, otherOptions?: IOtherOptions) => {
+export const del = <T>(url: string, options = {}, otherOptions?: IOtherOptions) => {
   return request<T>(url, Object.assign({}, options, { method: 'DELETE' }), otherOptions)
 }
 
-export const delPublic = <T = any>(url: string, options = {}, otherOptions?: IOtherOptions) => {
+export const delPublic = <T>(url: string, options = {}, otherOptions?: IOtherOptions) => {
   return del<T>(url, options, { ...otherOptions, isPublicAPI: true })
 }
 
-export const patch = <T = any>(url: string, options = {}, otherOptions?: IOtherOptions) => {
+export const patch = <T>(url: string, options = {}, otherOptions?: IOtherOptions) => {
   return request<T>(url, Object.assign({}, options, { method: 'PATCH' }), otherOptions)
 }
 
-export const patchPublic = <T = any>(url: string, options = {}, otherOptions?: IOtherOptions) => {
+export const patchPublic = <T>(url: string, options = {}, otherOptions?: IOtherOptions) => {
   return patch<T>(url, options, { ...otherOptions, isPublicAPI: true })
 }
