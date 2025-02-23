@@ -1,13 +1,19 @@
-import { PHONETIC_BASE_URL } from "@/app/constant";
 import combineParams from "./params";
-import { DictionaryEntry } from "@/types/dictionary";
+import { DictionaryEntry, PartOfSpeech } from "@/types/dictionary";
+import { getCloudflareContext } from "@opennextjs/cloudflare"
 
+declare global {
+  interface CloudflareEnv {
+    PHONETIC_BASE_URL: string;
+  }
+}
 
 const translate = async (query: string) => {
+  const { env }: {env: CloudflareEnv} = await getCloudflareContext()
   const params: Record<string, string> = {
     word: query,
   }
-  const fullUrl = combineParams(PHONETIC_BASE_URL, params)
+  const fullUrl = combineParams(env.PHONETIC_BASE_URL, params)
   const res = await fetch(fullUrl)
   const data = await res.json();
   return data;
@@ -23,7 +29,7 @@ interface TranslationData {
 const cleanTranslation = (word: string, data: Array<TranslationData>): DictionaryEntry => {
   const entry: DictionaryEntry = {
     entry: word,
-    explain: {}
+    explain: {} as PartOfSpeech
   };
   for (const item of data) {
     if (item.pos === "v") {

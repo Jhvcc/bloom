@@ -1,11 +1,21 @@
-import { YOUDAO_APP_KEY, YOUDAO_APP_SECRET, YOUDAO_BASE_URL, YOUDAO_SUGGEST_URL } from "@/app/constant";
 import sha256Hash from "./sha256";
 import { PartOfSpeech } from "@/types/dictionary";
 import combineParams from "./params";
+import { getCloudflareContext } from "@opennextjs/cloudflare"
+
+declare global {
+  interface CloudflareEnv {
+    YOUDAO_APP_KEY: string;
+    YOUDAO_APP_SECRET: string;
+    YOUDAO_BASE_URL: string;
+    YOUDAO_SUGGEST_URL: string;
+  }
+}
 
 const translate = async (query: string, from: string = "en", to: string = "zh-CNS") => {
-  const appKey = YOUDAO_APP_KEY;
-  const appSecret = YOUDAO_APP_SECRET;
+  const { env }: {env: CloudflareEnv} = await getCloudflareContext()
+  const appKey = env.YOUDAO_APP_KEY;
+  const appSecret = env.YOUDAO_APP_SECRET;
   const salt = new Date().getTime();
   const curtime = Math.round(new Date().getTime() / 1000);
   const str1 = appKey + truncate(query) + salt + curtime + appSecret;
@@ -22,7 +32,7 @@ const translate = async (query: string, from: string = "en", to: string = "zh-CN
     signType: 'v3',
     curtime: curtime.toString(),
   }
-  const fullUrl = combineParams(YOUDAO_BASE_URL || '', params)
+  const fullUrl = combineParams(env.YOUDAO_BASE_URL || '', params)
   const res = await fetch(fullUrl)
   const data = await res.json();
   return data;
@@ -35,6 +45,7 @@ const truncate = (q: string) => {
 }
 
 const translateSuggestion = async (query: string) => {
+  const { env }: {env: CloudflareEnv} = await getCloudflareContext()
   const params: Record<string, string> = {
     num: '5',
     ver: '3.0',
@@ -43,7 +54,7 @@ const translateSuggestion = async (query: string) => {
     le: 'en',
     q: query,
   }
-  const fullUrl = combineParams(YOUDAO_SUGGEST_URL || '', params)
+  const fullUrl = combineParams(env.YOUDAO_SUGGEST_URL || '', params)
   const res = await fetch(fullUrl)
   const data = await res.json();
   return data;

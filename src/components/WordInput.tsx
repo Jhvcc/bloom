@@ -72,7 +72,6 @@ const WordInput = ({ selectedWords, onWordsChange }: WordInputProps) => {
   const generateRandomWords = async () => {
     setIsGenerating(true)
     setError(null)
-    console.log("generateRandomWords");
 
     try {
       // Simulate API delay

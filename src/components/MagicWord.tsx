@@ -14,7 +14,6 @@ const MagicWord = ({word}: {word: string}) => {
   })
 
   const handleTranslate = async () => {
-    console.log('handleTranslate');
     const cleanWord = removeNonAlpha(word);
     mutation.mutate(cleanWord);
   }
@@ -35,7 +34,7 @@ const MagicWord = ({word}: {word: string}) => {
             </div>
           </HoverCardTrigger>
           <HoverCardContent>
-            { mutation.isPending 
+            { mutation.isPending && !mutation.data
               ? <TranslationCardSkeleton />
               : <TranslationCard {...mutation.data as TranslationData} /> 
             }

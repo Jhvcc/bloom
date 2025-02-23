@@ -1,4 +1,4 @@
-import { post } from "./base";
+// import { post } from "./base";
 
 interface TranslationResponse {
   data: {
@@ -8,10 +8,9 @@ interface TranslationResponse {
   }
 }
 
-export const translateWord = (word: string, type: string = 'xxapi') => {
-  return post<TranslationResponse>('/api/translation', { 
-    body: { query: word, type } 
-  });
+export const translateWord = async (word: string, type: string = 'xxapi'): Promise<TranslationResponse> => {
+  const res = await fetch('/api/translation', { method: "POST", body: JSON.stringify({ query: word, type }) })
+  return res.json()
 }
 
 export const translateWords = async (words: string[], type: string = 'xxapi') => {

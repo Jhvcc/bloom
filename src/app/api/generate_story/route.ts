@@ -1,17 +1,24 @@
-import { GEMINI_API_KEY, GEMINI_BASE_URL, MAX_GENERATE_WORDS_COUNT } from "@/app/constant";
 import { NextResponse, type NextRequest } from "next/server";
-import { generateStoryPrompt } from "@/app/constant";
+import { GEMINI_BASE_URL, generateStoryPrompt, MAX_GENERATE_WORDS_COUNT } from "@/app/constant";
+import { getCloudflareContext } from "@opennextjs/cloudflare"
+
+declare global {
+  interface CloudflareEnv {
+    GEMINI_API_KEY: string;
+  }
+}
 
 type Body = {
   words: string[];
 }
 
 async function handle(req: NextRequest) {
+  const { env }: {env: CloudflareEnv} = await getCloudflareContext()
   if (req.method === "OPTIONS") {
     return NextResponse.json({ body: "OK" }, { status: 200 });
   }
 
-  const apiKey = GEMINI_API_KEY;
+  const apiKey = env.GEMINI_API_KEY;
   if (!apiKey) {
     return NextResponse.json({ error: "GEMINI_API_KEY is not set" }, { status: 401 });
   }
@@ -42,7 +49,7 @@ async function request(req: NextRequest, apiKey: string) {
   }, 10 * 60 * 1000)
 
   const words_count = MAX_GENERATE_WORDS_COUNT;
-  const system_prompt = generateStoryPrompt(words_count, words);
+  const system_prompt = await generateStoryPrompt(words_count, words);
   const prompt = [
     {"role": "user", "parts": [{"text": system_prompt}]}
   ]

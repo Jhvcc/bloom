@@ -1,8 +1,9 @@
 import { type Story } from "@/components/StoryList";
-import { post } from "./base";
+// import { post } from "./base";
 
-export const generateStory = (words: string[]) => {
-  return post('/api/generate_story', { body: { words } })
+export const generateStory = async (words: string[]) => {
+  const res = await fetch('/api/generate_story', { method: "POST", body: JSON.stringify({ words }) })
+  return res.json()
 }
 
 export const generateStories = async (words: string[]): Promise<Story[]> => {

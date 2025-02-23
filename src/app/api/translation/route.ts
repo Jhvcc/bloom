@@ -23,10 +23,10 @@ const handleYoudao = async (word: string): Promise<TranslationData> => {
     suggest: target,
     extra: cleanSuggestion.filter((item: DictionaryEntry) => item.entry !== word),
     uk: {
-      audio: generateVoice(word, 1),
+      audio: await generateVoice(word, 1),
     },
     us: {
-      audio: generateVoice(word, 2),
+      audio: await generateVoice(word, 2),
     },
   }
   return data
@@ -35,7 +35,9 @@ const handleYoudao = async (word: string): Promise<TranslationData> => {
 const handleXxapi = async (word: string) => {
   const xxapiRes = await xxapiTr.translate(word);
   if (xxapiRes.code !== 200) {
-    throw new Error(`Failed to use xxapi to translate: ${JSON.stringify(xxapiRes)}`);}
+    // throw new Error(`Failed to use xxapi to translate: ${JSON.stringify(xxapiRes)}`);}
+    return await handleYoudao(word);
+  }
   const { data } = xxapiRes;
   const suggest = xxapiTr.cleanTranslation(word, data.translations);
   const resData = {
