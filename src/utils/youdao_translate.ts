@@ -1,6 +1,6 @@
 import { YOUDAO_APP_KEY, YOUDAO_APP_SECRET, YOUDAO_BASE_URL, YOUDAO_SUGGEST_URL } from "@/app/constant";
 import sha256Hash from "./sha256";
-import { DictionaryMulti } from "@/types/dictionary";
+import { PartOfSpeech } from "@/types/dictionary";
 import combineParams from "./params";
 
 const translate = async (query: string, from: string = "en", to: string = "zh-CNS") => {
@@ -22,7 +22,7 @@ const translate = async (query: string, from: string = "en", to: string = "zh-CN
     signType: 'v3',
     curtime: curtime.toString(),
   }
-  const fullUrl = combineParams(YOUDAO_BASE_URL, params)
+  const fullUrl = combineParams(YOUDAO_BASE_URL || '', params)
   const res = await fetch(fullUrl)
   const data = await res.json();
   return data;
@@ -43,14 +43,14 @@ const translateSuggestion = async (query: string) => {
     le: 'en',
     q: query,
   }
-  const fullUrl = combineParams(YOUDAO_SUGGEST_URL, params)
+  const fullUrl = combineParams(YOUDAO_SUGGEST_URL || '', params)
   const res = await fetch(fullUrl)
   const data = await res.json();
   return data;
 }
 
-function splitExplain (explain: string): DictionaryMulti {
-  const entry: DictionaryMulti = {};
+function splitExplain (explain: string): PartOfSpeech {
+  const entry: PartOfSpeech = {};
   const parts = explain.split(';');
   const otherParts: string[] = [];  // Array to collect unparsed parts
 

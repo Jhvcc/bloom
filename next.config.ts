@@ -1,13 +1,11 @@
-import { setupDevPlatform } from '@cloudflare/next-on-pages/next-dev';
+import { initOpenNextCloudflareForDev } from "@opennextjs/cloudflare";
 
 import type { NextConfig } from "next";
+
+initOpenNextCloudflareForDev();
 
 const nextConfig: NextConfig = {
   /* config options here */
 };
-
-if (process.env.NODE_ENV === 'development') {
-  setupDevPlatform();
-}
 
 export default nextConfig;

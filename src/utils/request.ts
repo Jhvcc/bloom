@@ -1,14 +1,16 @@
 
-export async function asyncRunSafe<T = any>(fn: Promise<T>): Promise<[Error] | [null, T]> {
+export async function asyncRunSafe<T>(fn: Promise<T>): Promise<[Error] | [null, T]> {
   try {
     return [null, await fn]
-  } catch (error: any) {
-    return [error || new Error("unknown error")]
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      return [error]
+    }
+    return [new Error("unknown error")]
   }
 }
 
-
-export async function fetchWithRetry<T = any>(fn: Promise<T>, retries = 3): Promise<[Error] | [null, T]> {
+export async function fetchWithRetry<T>(fn: Promise<T>, retries = 3): Promise<[Error] | [null, T]> {
   const [error, res] = await asyncRunSafe(fn)
   if (error) {
     if (retries > 0) {

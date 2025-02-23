@@ -1,7 +1,5 @@
 import { NextResponse, type NextRequest } from "next/server";
 
-export const runtime = "edge";
-
 function handleGet(req: NextRequest) {
   console.log({req})
   return NextResponse.json({ message: "Hello, world!" });

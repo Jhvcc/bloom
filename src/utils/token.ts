@@ -7,7 +7,7 @@ export const removeAccessToken = () => {
   try {
     accessTokenJson = JSON.parse(accessToken)
   }
-  catch (e) {
+  catch {
 
   }
 

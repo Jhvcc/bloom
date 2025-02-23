@@ -2,8 +2,6 @@ import { GEMINI_API_KEY, GEMINI_BASE_URL, MAX_GENERATE_WORDS_COUNT } from "@/app
 import { NextResponse, type NextRequest } from "next/server";
 import { generateStoryPrompt } from "@/app/constant";
 
-export const runtime = "edge";
-
 type Body = {
   words: string[];
 }

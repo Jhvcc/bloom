@@ -2,8 +2,6 @@ import { DAILY_WORDS_COUNT } from "@/app/constant";
 import { randomWords } from "@/utils/random-words";
 import { type NextRequest, NextResponse } from "next/server";
 
-export const runtime = "edge";
-
 export const GET = handle;
 
 async function handle(req: NextRequest) {

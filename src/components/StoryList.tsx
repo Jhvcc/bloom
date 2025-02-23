@@ -1,6 +1,5 @@
 'use client';
 
-import { Trash2, Wand2 } from 'lucide-react';
 import React from 'react';
 import MagicWord from './MagicWord';
 export interface Story {

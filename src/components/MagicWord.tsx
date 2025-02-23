@@ -9,7 +9,7 @@ import { useMutation } from "@tanstack/react-query";
 import TranslationCardSkeleton from "./TranslationCard.skeleton";
 
 const MagicWord = ({word}: {word: string}) => {
-  const mutation = useMutation({
+  const mutation = useMutation<TranslationData, Error, string>({
     mutationFn: fetchTranslation,
   })
 
@@ -37,7 +37,7 @@ const MagicWord = ({word}: {word: string}) => {
           <HoverCardContent>
             { mutation.isPending 
               ? <TranslationCardSkeleton />
-              : <TranslationCard {...mutation.data?.data as TranslationData} /> 
+              : <TranslationCard {...mutation.data as TranslationData} /> 
             }
           </HoverCardContent>
         </HoverCard>

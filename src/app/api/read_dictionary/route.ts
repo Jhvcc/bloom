@@ -1,8 +1,6 @@
 import { STATIC_BASE_URL } from "@/app/constant";
 import { NextRequest, NextResponse } from "next/server";
 
-export const runtime = "edge";
-
 const readDictionary = async (name: string) => {
   const url = `${STATIC_BASE_URL}/${name}.json`;
   const dictionary = await fetch(url, {

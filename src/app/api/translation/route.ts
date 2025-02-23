@@ -4,8 +4,6 @@ import xxapiTr from "@/utils/phonetic_translate";
 import { DictionaryEntry, TranslationData } from "@/types/dictionary";
 import { generateVoice } from "@/app/constant";
 
-export const runtime = "edge";
-
 const handleYoudao = async (word: string): Promise<TranslationData> => {
   const [translateData, suggestData] = await Promise.all([
     youdaoTr.translate(word),

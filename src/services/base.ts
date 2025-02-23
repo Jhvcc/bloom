@@ -35,8 +35,8 @@ export type IOtherOptions = {
 }
 
 type FetchOptionType = Omit<RequestInit, 'body'> & {
-  params?: Record<string, any>
-  body?: BodyInit | Record<string, any> | null
+  params?: Record<string, string>
+  body?: BodyInit | Record<string, string> | null
 }
 
 type ResponseError = {
@@ -70,7 +70,6 @@ const baseFetch = async<T>(
   url: string, 
   fetchOptions: FetchOptionType,
   {
-    isPublicAPI = false,
     bodyStringify = true,
     needAllResponseContent,
     deleteContentType,
@@ -190,7 +189,7 @@ export const request = async<T>(url: string, options = {}, otherOptions?: IOther
     if (err === null) {
       return resp
     }
-    const errResp: Response = err as any
+    const errResp: Response = err as unknown as Response
     if (errResp.status === 401) {
       const [parseErr, errRespData] = await asyncRunSafe<ResponseError>(errResp.json())
       const loginUrl = `${globalThis.location.origin}/signin`
