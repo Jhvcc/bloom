@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Gloom",
+  title: "Bloom",
   description: "Learn words, blossom your world.",
 };
 
