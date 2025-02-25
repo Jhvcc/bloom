@@ -91,7 +91,7 @@ async function request(req: NextRequest, apiKey: string) {
     const story = data.candidates[0].content.parts[0];
     const storyData = {
       id: crypto.randomUUID(),
-      word: words[0],
+      words,
       story: story.text,
     }
     return new Response(JSON.stringify(storyData), {

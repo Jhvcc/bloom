@@ -44,7 +44,7 @@ export const PHONETIC_BASE_URL = process.env.PHONETIC_BASE_URL || "";
 
 export const STATIC_BASE_URL = process.env.STATIC_BASE_URL || "";
 
-export const MAX_GENERATE_WORDS_COUNT = 30;
+export const MAX_GENERATE_WORDS_COUNT = 50;
 export const IS_RANDOM = true;
 export const DAILY_WORDS_COUNT = 10;
 

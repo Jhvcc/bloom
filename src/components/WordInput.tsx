@@ -148,7 +148,7 @@ const WordInput = ({ selectedWords, onWordsChange }: WordInputProps) => {
         </Alert>
       )}
 
-      <div>
+      <div className="flex gap-2">
         {selectedWords.map((word) => (
           <Badge
             key={word}

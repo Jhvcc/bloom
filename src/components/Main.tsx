@@ -6,14 +6,14 @@ import WordInput from "./WordInput";
 import { Alert, AlertDescription } from "./ui/alert";
 import { InfoIcon, Wand2 } from "lucide-react";
 import { Button } from "./ui/button";
-import { generateStories } from "@/services/generate-story";
+import { generateStory } from "@/services/generate-story";
 import { useState } from "react";
 
 
 const Main = () => {
   const [selectedWords, setSelectedWords] = useState<string[]>([])
-  const mutation = useMutation<Story[], Error>({
-    mutationFn: async (): Promise<Story[]> => generateStories(selectedWords)
+  const mutation = useMutation<Story, Error>({
+    mutationFn: async (): Promise<Story> => generateStory(selectedWords)
   })
 
   return (
@@ -64,7 +64,7 @@ const Main = () => {
           <WordInput selectedWords={selectedWords} onWordsChange={setSelectedWords} />
         </div>
 
-        {mutation.isSuccess && <StoryList stories={mutation.data} />}
+        {mutation.isSuccess && <StoryList {...mutation.data} />}
       </main>
     </div>
   )
