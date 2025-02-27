@@ -7,22 +7,29 @@ import { fetchTranslation } from "@/services/translation";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "./ui/hover-card";
 import { useMutation } from "@tanstack/react-query";
 import TranslationCardSkeleton from "./TranslationCard.skeleton";
+import React, { useCallback } from "react";
+import { useThrottle } from "@/hooks/useThrottle";
 
-const MagicWord = ({word}: {word: string}) => {
+const MagicWord = React.memo(function A({word}: {word: string}) {
   const mutation = useMutation<TranslationData, Error, string>({
     mutationFn: fetchTranslation,
   })
 
-  const handleTranslate = async () => {
+  const translate = useThrottle(mutation.mutate, 500)
+
+  const handleTranslate = useCallback(() => {
     const cleanWord = removeNonAlpha(word);
-    mutation.mutate(cleanWord);
-  }
+    translate(cleanWord);
+  }, [word, translate])
 
   return (
     <>
       <span className="relative inline-block transition-all duration-300 group">
         <HoverCard>
-          <HoverCardTrigger asChild onPointerEnter={handleTranslate}>
+          <HoverCardTrigger 
+            asChild 
+            onPointerEnter={handleTranslate}
+          >
             <div>
               <span className="relative inline-block cursor-pointer transition-all duration-300 group-hover:text-purple-600 group-hover:font-medium group-hover:scale-110 group-hover:translate-y-[-2px]">
                 <button className="bg-transparent border-none p-0 m-0">
@@ -47,6 +54,6 @@ const MagicWord = ({word}: {word: string}) => {
       </span>
     </>
   )
-}
+})
 
 export default MagicWord;

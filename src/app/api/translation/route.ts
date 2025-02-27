@@ -19,7 +19,7 @@ const handleYoudao = async (word: string): Promise<TranslationData> => {
   const target = cleanSuggestion.find((item: DictionaryEntry) => item.entry === word);
   const data = {
     word,
-    translation: translateData.translation.join(', '),
+    translation: translateData.translation?.join(', '),
     suggest: target,
     extra: cleanSuggestion.filter((item: DictionaryEntry) => item.entry !== word),
     uk: {
