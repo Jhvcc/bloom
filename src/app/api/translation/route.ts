@@ -35,7 +35,6 @@ const handleYoudao = async (word: string): Promise<TranslationData> => {
 const handleXxapi = async (word: string) => {
   const xxapiRes = await xxapiTr.translate(word);
   if (xxapiRes.code !== 200) {
-    // throw new Error(`Failed to use xxapi to translate: ${JSON.stringify(xxapiRes)}`);}
     return await handleYoudao(word);
   }
   const { data } = xxapiRes;
@@ -64,9 +63,14 @@ const handle = async (req: NextRequest) => {
       const data = await handleXxapi(query)
       return NextResponse.json({ data });
     } catch (error) {
-      console.error(error);
-      const data = await handleYoudao(query);
-      return NextResponse.json({ data });
+      try {
+        console.error(error);
+        const data = await handleYoudao(query);
+        return NextResponse.json({ data });
+      } catch (_error) {
+        console.error(_error);
+        return NextResponse.json({ data: null}, { status: 400 })
+      }
     }
   } else {
     const data = await handleYoudao(query);

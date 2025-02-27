@@ -34,7 +34,11 @@ const MagicWord = ({word}: {word: string}) => {
             </div>
           </HoverCardTrigger>
           <HoverCardContent>
-            { mutation.isPending && !mutation.data
+            { mutation.isError ? (
+                <div>
+                  <p>Failed to fetch translation</p>
+                </div>
+              ) : mutation.isPending && !mutation.data
               ? <TranslationCardSkeleton />
               : <TranslationCard {...mutation.data as TranslationData} /> 
             }

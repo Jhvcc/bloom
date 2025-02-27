@@ -1,7 +1,7 @@
 'use client'
 
 import { useMutation } from "@tanstack/react-query";
-import StoryList, { type Story } from "./StoryList";
+import StoryCard, { type Story } from "./StoryCard";
 import WordInput from "./WordInput";
 import { Alert, AlertDescription } from "./ui/alert";
 import { InfoIcon, Wand2 } from "lucide-react";
@@ -28,7 +28,7 @@ const Main = () => {
           </p>
         </header>
 
-        <div className="mb-8 rounded-lg bg-white p-6 shadow-lg dark:bg-gray-800">
+        <div className="mb-8 rounded-2xl bg-white p-6 shadow-lg dark:bg-gray-800">
           <div className="mb-4 space-y-4">
             <div className="flex items-center justify-between">
               <h2 className="text-xl font-semibold text-violet-900 dark:text-violet-100">
@@ -64,7 +64,8 @@ const Main = () => {
           <WordInput selectedWords={selectedWords} onWordsChange={setSelectedWords} />
         </div>
 
-        {mutation.isSuccess && <StoryList {...mutation.data} />}
+        {mutation.isSuccess && <StoryCard {...mutation.data} />}
+        <StoryCard id="123" words={["word", "love", "history"]} story="Add up to the words manually or generate random words. Each word will get its own story to help you learn it in context.Add up to the words manually or generate random words. Each word will get its own story to help you learn it in context.Add up to the words manually or generate random words. Each word will get its own story to help you learn it in context.Add up to the words manually or generate random words. Each word will get its own story to help you learn it in context." />
       </main>
     </div>
   )

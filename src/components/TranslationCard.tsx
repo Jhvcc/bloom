@@ -56,7 +56,7 @@ const TranslationCard = (props: TranslationData) => {
               <PlayIcon />
             </button>
           </div>
-          <PartOfSpeechArea {...props.suggest.explain} />
+          <PartOfSpeechArea {...props.suggest?.explain} />
         </div>
       </div>
     </div>

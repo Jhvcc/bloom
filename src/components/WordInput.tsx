@@ -6,7 +6,6 @@ import { Button } from "./ui/button";
 import { Loader2, Plus, Shuffle, X } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "./ui/alert";
 import { ExclamationTriangleIcon } from "@radix-ui/react-icons"
-import { Badge } from "./ui/badge";
 import { readJson } from "@/services/read-json";
 
 
@@ -150,14 +149,13 @@ const WordInput = ({ selectedWords, onWordsChange }: WordInputProps) => {
 
       <div className="flex gap-2">
         {selectedWords.map((word) => (
-          <Badge
+          <span
             key={word}
-            variant="secondary"
-            className="cursor-pointer text-sm"
+            className="cursor-pointer text-sm px-3 py-1 bg-primary/10 text-primary font-medium rounded-full hover:bg-primary/20 focus:bg-primary/20 "
             onClick={() => handleRemoveWord(word)}
           >
             {word}
-          </Badge>
+          </span>
         ))}
 
         {selectedWords.length === 0 && (

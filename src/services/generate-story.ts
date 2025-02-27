@@ -1,4 +1,4 @@
-import { type Story } from "@/components/StoryList";
+import { type Story } from "@/components/StoryCard";
 // import { post } from "./base";
 
 export const generateStory = async (words: string[]): Promise<Story> => {
