@@ -10,6 +10,7 @@ declare global {
 
 type Body = {
   words: string[];
+  storyWords?: number;
 }
 
 async function handle(req: NextRequest) {
@@ -37,6 +38,7 @@ export const POST = handle;
 async function request(req: NextRequest, apiKey: string) {
   const body: Body = await req.json();
   const words = body.words;
+  const storyWords = body?.storyWords || MAX_GENERATE_WORDS_COUNT;
 
   if (words.length === 0) {
     return NextResponse.json({ error: "Words are required" }, { status: 400 });
@@ -48,8 +50,7 @@ async function request(req: NextRequest, apiKey: string) {
     controller.abort();
   }, 10 * 60 * 1000)
 
-  const words_count = MAX_GENERATE_WORDS_COUNT;
-  const system_prompt = await generateStoryPrompt(words_count, words);
+  const system_prompt = await generateStoryPrompt(storyWords, words);
   const prompt = [
     {"role": "user", "parts": [{"text": system_prompt}]}
   ]
