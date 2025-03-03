@@ -4,7 +4,7 @@ import StoryCard, { Story } from "@/components/StoryCard"
 import { Button } from "@/components/ui/button"
 import { generateStory } from "@/services/generate-story"
 import { useQuery } from "@tanstack/react-query"
-import { ChevronLeft } from "lucide-react"
+import { ChevronLeft, RefreshCw } from "lucide-react"
 import Link from "next/link"
 import { useSearchParams } from "next/navigation"
 import { useEffect, useState } from "react";
@@ -31,7 +31,10 @@ const StoryMain = () => {
       <div className="w-full max-w-2xl space-y-6">
         {storyQuery.isSuccess ?
           <StoryCard {...storyQuery.data!} />
-          : <div>Loading...</div>
+          : <div className="flex justify-start items-center gap-2">
+            <RefreshCw className="w-4 h-4 animate-spin" />
+            Loading...
+          </div>
         }
 
         <div className="flex justify-between pt-4">

@@ -14,7 +14,7 @@ type Body = {
 }
 
 async function handle(req: NextRequest) {
-  const { env }: {env: CloudflareEnv} = await getCloudflareContext()
+  const { env }: { env: CloudflareEnv } = await getCloudflareContext()
   if (req.method === "OPTIONS") {
     return NextResponse.json({ body: "OK" }, { status: 200 });
   }
@@ -52,7 +52,7 @@ async function request(req: NextRequest, apiKey: string) {
 
   const system_prompt = await generateStoryPrompt(storyWords, words);
   const prompt = [
-    {"role": "user", "parts": [{"text": system_prompt}]}
+    { "role": "user", "parts": [{ "text": system_prompt }] }
   ]
 
   const fetchUrl = `${baseUrl}/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`
