@@ -3,7 +3,7 @@
 import { removeNonAlpha } from "@/utils/alpha";
 import { Card, CardContent } from "./ui/card";
 import { Button } from "./ui/button";
-import { VolumeIcon } from "lucide-react";
+import { RefreshCw, VolumeIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 import { TranslationData } from "@/types/dictionary";
 import { useMutation } from "@tanstack/react-query";
@@ -46,6 +46,11 @@ const WordCard = (props: WordCardProps) => {
         <div className="flex items-center justify-between">
           <div>
             <h3 className="text-xl font-bold">{word}</h3>
+            {mutation.isPending && (
+              <div>
+                <RefreshCw className="w-4 h-4 animate-spin" />
+              </div>
+            )}
             {tr && tr.uk?.phonetic &&
               <p className="text-sm text-muted-foreground before:content-['/'] after:content-['/']">{tr.uk.phonetic}</p>
             }
@@ -62,7 +67,7 @@ const WordCard = (props: WordCardProps) => {
               </div>
             }
           </div>
-          {tr && 
+          {tr &&
             <Button variant="ghost" size="icon" onClick={() => playAudio(tr.uk.audio)}>
               <VolumeIcon className="h-5 w-5" />
             </Button>
@@ -73,7 +78,7 @@ const WordCard = (props: WordCardProps) => {
   )
 }
 
-const WordsList = (props: {words: string[]}) => {
+const WordsList = (props: { words: string[] }) => {
   const { words } = props
   const [wordTranslation, setWordTranslation] = useState<Record<string, TranslationData>>({})
 
@@ -83,10 +88,10 @@ const WordsList = (props: {words: string[]}) => {
       [translation.word]: translation,
     }))
   }
-  
+
   return (
     <>
-      {words.map((word) => <WordCard key={word} word={word} setTranslation={setTranslation} wordTranslation={wordTranslation} /> )}
+      {words.map((word) => <WordCard key={word} word={word} setTranslation={setTranslation} wordTranslation={wordTranslation} />)}
     </>
   )
 }

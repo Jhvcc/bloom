@@ -7,24 +7,31 @@ import { useQuery } from "@tanstack/react-query"
 import { ChevronLeft } from "lucide-react"
 import Link from "next/link"
 import { useSearchParams } from "next/navigation"
+import { useEffect, useState } from "react";
 
 
 const StoryMain = () => {
   const params = useSearchParams();
   const difficulty = params.get('level') || "beginner";
-  const difficultyStoryNum = difficulty === "beginner"? 50 : difficulty === "intermediate"? 100 : 150;
-  const words = JSON.parse(localStorage.getItem("words") || "[]");
+  const difficultyStoryNum = difficulty === "beginner" ? 50 : difficulty === "intermediate" ? 100 : 150;
+  const [words, setWords] = useState<string[]>([])
   const storyQuery = useQuery<Story>({
     queryKey: ["story", difficulty],
-    queryFn: async () => generateStory(words, difficultyStoryNum)
+    queryFn: async () => generateStory(words, difficultyStoryNum),
+    enabled: words.length > 0,
   })
+
+  useEffect(() => {
+    const storedWords = JSON.parse(localStorage.getItem("words") || "[]");
+    setWords(storedWords)
+  }, [])
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-center bg-background p-4">
       <div className="w-full max-w-2xl space-y-6">
         {storyQuery.isSuccess ?
-        <StoryCard {...storyQuery.data!} /> 
-        : <div>Loading...</div>
+          <StoryCard {...storyQuery.data!} />
+          : <div>Loading...</div>
         }
 
         <div className="flex justify-between pt-4">

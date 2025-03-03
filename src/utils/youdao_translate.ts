@@ -13,13 +13,13 @@ declare global {
 }
 
 const translate = async (query: string, from: string = "en", to: string = "zh-CNS") => {
-  const { env }: {env: CloudflareEnv} = await getCloudflareContext()
+  const { env }: { env: CloudflareEnv } = await getCloudflareContext()
   const appKey = env.YOUDAO_APP_KEY;
   const appSecret = env.YOUDAO_APP_SECRET;
   const salt = new Date().getTime();
   const curtime = Math.round(new Date().getTime() / 1000);
   const str1 = appKey + truncate(query) + salt + curtime + appSecret;
-  
+
   const sign = await sha256Hash(str1);
 
   const params: Record<string, string> = {
@@ -45,7 +45,7 @@ const truncate = (q: string) => {
 }
 
 const translateSuggestion = async (query: string) => {
-  const { env }: {env: CloudflareEnv} = await getCloudflareContext()
+  const { env }: { env: CloudflareEnv } = await getCloudflareContext()
   const params: Record<string, string> = {
     num: '5',
     ver: '3.0',
@@ -60,8 +60,11 @@ const translateSuggestion = async (query: string) => {
   return data;
 }
 
-function splitExplain (explain: string): PartOfSpeech {
+function splitExplain(explain?: string): PartOfSpeech {
   const entry: PartOfSpeech = {};
+  if (!explain) {
+    return entry
+  }
   const parts = explain.split(';');
   const otherParts: string[] = [];  // Array to collect unparsed parts
 
