@@ -9,8 +9,9 @@ import { useMutation } from "@tanstack/react-query";
 import TranslationCardSkeleton from "./TranslationCard.skeleton";
 import React, { useCallback } from "react";
 import { useThrottle } from "@/hooks/useThrottle";
+import Markdown from "react-markdown";
 
-const MagicWord = React.memo(function A({word}: {word: string}) {
+const MagicWord = React.memo(function A({ word }: { word: string }) {
   const mutation = useMutation<TranslationData, Error, string>({
     mutationFn: fetchTranslation,
   })
@@ -26,14 +27,16 @@ const MagicWord = React.memo(function A({word}: {word: string}) {
     <>
       <span className="relative inline-block transition-all duration-300 group">
         <HoverCard>
-          <HoverCardTrigger 
-            asChild 
+          <HoverCardTrigger
+            asChild
             onPointerEnter={handleTranslate}
           >
             <div>
               <span className="relative inline-block cursor-pointer transition-all duration-300 group-hover:text-purple-600 group-hover:font-medium group-hover:scale-110 group-hover:translate-y-[-2px]">
                 <button className="bg-transparent border-none p-0 m-0">
-                  {word}
+                  <Markdown>
+                    {word}
+                  </Markdown>
                 </button>
               </span>
               <span className="absolute inset-0 opacity-0 group-hover:opacity-10 bg-purple-300 blur-lg rounded-full transition-all duration-300 scale-150"></span>
@@ -41,13 +44,13 @@ const MagicWord = React.memo(function A({word}: {word: string}) {
             </div>
           </HoverCardTrigger>
           <HoverCardContent>
-            { mutation.isError ? (
-                <div>
-                  <p>Failed to fetch translation</p>
-                </div>
-              ) : mutation.isPending && !mutation.data
+            {mutation.isError ? (
+              <div>
+                <p>Failed to fetch translation</p>
+              </div>
+            ) : mutation.isPending && !mutation.data
               ? <TranslationCardSkeleton />
-              : <TranslationCard {...mutation.data as TranslationData} /> 
+              : <TranslationCard {...mutation.data as TranslationData} />
             }
           </HoverCardContent>
         </HoverCard>
