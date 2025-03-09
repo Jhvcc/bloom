@@ -16,9 +16,13 @@ interface WordCardProps {
 }
 
 const WordCard = (props: WordCardProps) => {
+  const controller = new AbortController();
+  const signal = controller.signal;
+
   const word = removeNonAlpha(props.word)
   const mutation = useMutation<TranslationData, Error, string>({
-    mutationFn: fetchTranslation,
+    mutationKey: ['translation', word],
+    mutationFn: (word) => fetchTranslation(word, signal),
   })
 
   const playAudio = (audioUrl: string) => {
