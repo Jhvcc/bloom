@@ -26,7 +26,7 @@ async function handle(req: NextRequest) {
 
   try {
     const response = await request(req, apiKey);
-    return response;
+    return NextResponse.json(response, { status: 200 });
   } catch (e) {
     console.error("[Google] ", e);
     return NextResponse.json({ error: "Failed to generate story" }, { status: 500 });
@@ -95,11 +95,12 @@ async function request(req: NextRequest, apiKey: string) {
       words,
       story: story.text,
     }
-    return new Response(JSON.stringify(storyData), {
-      status: res.status,
-      statusText: res.statusText,
-      headers: newHeaders,
-    });
+    return storyData
+    // return new Response(JSON.stringify(storyData), {
+    //   status: res.status,
+    //   statusText: res.statusText,
+    //   headers: newHeaders,
+    // });
   } catch (e) {
     console.error("[Google] ", e);
     throw e;

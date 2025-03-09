@@ -31,7 +31,7 @@ export enum GoogleSafetySettingsThreshold {
 }
 
 export const generateVoice = async (word: string, accent: UKAccent | USAccent) => {
-  const { env }: {env: CloudflareEnv} = await getCloudflareContext()
+  const { env }: { env: CloudflareEnv } = await getCloudflareContext()
   return env.VOICE_BASE_URL?.replace("%word%", word).replace("%accent%", accent.toString()) || ""
 }
 
@@ -49,7 +49,7 @@ export const IS_RANDOM = true;
 export const DAILY_WORDS_COUNT = 10;
 
 export const generateStoryPrompt = async (words_count: number, words: string[]) => {
-  const { env }: {env: CloudflareEnv} = await getCloudflareContext()
+  const { env }: { env: CloudflareEnv } = await getCloudflareContext()
   return env.STORY_PROMPT?.replace("%words_count%", words_count.toString()).replace("%words%", words.join(", ")) || ""
 }
 

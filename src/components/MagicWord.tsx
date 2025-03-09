@@ -12,16 +12,24 @@ import { useThrottle } from "@/hooks/useThrottle";
 import Markdown from "react-markdown";
 
 const MagicWord = React.memo(function A({ word }: { word: string }) {
-  const mutation = useMutation<TranslationData, Error, string>({
-    mutationFn: fetchTranslation,
+  const controller = new AbortController();
+  const signal = controller.signal;
+
+  const mutation = useMutation({
+    mutationKey: ["translation", signal],
+    mutationFn: (query: string) => fetchTranslation(query, signal),
   })
 
   const translate = useThrottle(mutation.mutate, 500)
 
   const handleTranslate = useCallback(() => {
-    const cleanWord = removeNonAlpha(word);
-    translate(cleanWord);
+    const query = removeNonAlpha(word);
+    translate(query);
   }, [word, translate])
+
+  const handleOut = () => {
+    controller.abort()
+  }
 
   return (
     <>
@@ -30,6 +38,7 @@ const MagicWord = React.memo(function A({ word }: { word: string }) {
           <HoverCardTrigger
             asChild
             onPointerEnter={handleTranslate}
+            onPointerOut={handleOut}
           >
             <div>
               <span className="relative inline-block cursor-pointer transition-all duration-300 group-hover:text-purple-600 group-hover:font-medium group-hover:scale-110 group-hover:translate-y-[-2px]">
