@@ -2,6 +2,244 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 222.2 47.4% 11.2%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 84% 4.9%;
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-noto-sans), sans-serif;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .font-serif {
+    font-family: var(--font-noto-serif), serif;
+  }
+}
+
+/* Flashcard 3D Flip */
+.flashcard-container {
+  perspective: 1000px;
+  height: 480px;
+}
+
+.flashcard {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.7s ease-in-out;
+  cursor: pointer;
+}
+
+.flashcard.is-flipped {
+  transform: rotateY(180deg);
+}
+
+.flashcard-face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.flashcard-front {
+  background-color: white;
+}
+
+.flashcard-back {
+  background-color: #f0f9ff;
+  transform: rotateY(180deg);
+}
+
+/* Progress Bar */
+.progress-bar-container {
+  height: 4px;
+  background-color: #e5e7eb;
+  border-radius: 2px;
+  overflow: hidden;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 40;
+}
+
+.progress-bar {
+  height: 100%;
+  background-color: #1f2937;
+  transition: width 0.3s ease-in-out;
+}
+
+/* Reading Text Highlight */
+.highlighted-word {
+  background-color: #fef9c3;
+  cursor: pointer;
+  padding: 0 2px;
+  border-radius: 2px;
+  transition: background-color 0.2s ease;
+}
+
+.highlighted-word:hover {
+  background-color: #fde047;
+}
+
+/* Quiz Feedback */
+.option-button.correct {
+  background-color: #dcfce7;
+  border-color: #22c55e;
+  color: #166534;
+}
+
+.option-button.incorrect {
+  background-color: #fee2e2;
+  border-color: #ef4444;
+  color: #991b1b;
+}
+
+.option-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* Poster Modal */
+.poster-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+  cursor: pointer;
+}
+
+.poster-content {
+  width: 90%;
+  max-width: 400px;
+  aspect-ratio: 9 / 16;
+  background-color: white;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 1.25rem;
+}
+
+/* Poster Styles */
+.poster-bold-modern {
+  background: linear-gradient(135deg, #000 0%, #1a1a1a 100%);
+  color: #fff;
+  padding: 1.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.poster-cyberpunk {
+  background: #000020;
+  color: #0ff;
+  padding: 1.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.poster-elegant-vintage {
+  background: #f8f3e3;
+  color: #2c1810;
+  padding: 1.5rem;
+  position: relative;
+  border: 8px double #8b4513;
+}
+
+.poster-neo-futurism {
+  background: linear-gradient(135deg, #f5f5f7 0%, #ffffff 100%);
+  color: #1d1d1f;
+  padding: 1.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Reading styles */
+.prose {
+  max-width: none;
+  font-size: 1.125rem;
+  line-height: 2;
+  color: #1f2937;
+}
+
+.bilingual-pair .english {
+  color: #1f2937;
+  font-size: 1.125rem;
+  line-height: 2;
+  margin-bottom: 0.5rem;
+}
+
+.bilingual-pair .chinese {
+  color: #374151;
+  font-size: 1.125rem;
+  line-height: 2;
+  padding-left: 1rem;
+  border-left: 2px solid #e5e7eb;
+}
+
 /** Reference: https://www.joshwcomeau.com/css/custom-css-reset/ */
 
 /* 1. Use a more-intuitive box-sizing model */

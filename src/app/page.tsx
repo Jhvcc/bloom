@@ -1,7 +1,6 @@
-import Main from "@/components/Main"
+import { redirect } from "next/navigation"
 
 export default function Home() {
-  return (
-    <Main />
-  )
+  // Redirect to the words learning module by default
+  redirect("/words")
 }
