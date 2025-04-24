@@ -55,24 +55,40 @@ export default function WordsPage() {
   return (
     <>
       <div
-        className="swipe-area"
+        className="swipe-area flex flex-col gap-10 justify-center items-center flex-grow-0 flex-shrink-0"
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
       >
         <h2 className="text-2xl font-semibold mb-6 text-gray-800 text-center">单词学习</h2>
-        <div className="max-w-md mx-auto">
+        <div className="h-96 w-96 max-w-md">
           <div className="flashcard-container h-64 sm:h-72 mb-6">
             <div className={`flashcard ${isFlipped ? "is-flipped" : ""}`} onClick={() => setIsFlipped(!isFlipped)}>
               {/* Front Face */}
-              <div className="flashcard-face flashcard-front">
-                <div className="text-4xl sm:text-5xl font-bold text-gray-900 mb-2">{currentWord.word}</div>
-                <div className="text-lg text-gray-600">{currentWord.phonetic.uk}</div>
+              <div className="flashcard-face flashcard-front flex flex-col justify-center items-center p-6">
+                <div className="text-4xl sm:text-5xl font-bold text-gray-900 mb-6">{currentWord.word}</div>
+                <div className="flex flex-col items-center text-lg text-gray-700">
+                  {/* 英音音标，如果存在则显示 */}
+                  {currentWord.phonetic.uk && (
+                    <div className="flex items-center mb-2"> {/* flex items-center 使 UK: 和音标对齐，mb-2 提供下方间距 */}
+                      <span className="mr-2 text-sm font-semibold text-gray-600">UK:</span> {/* UK: 标签样式 */}
+                      <span>{currentWord.phonetic.uk}</span> {/* 英音音标 */}
+                    </div>
+                  )}
+
+                  {/* 美音音标，如果存在则显示 */}
+                  {currentWord.phonetic.us && (
+                    <div className="flex items-center"> {/* flex items-center 使 US: 和音标对齐 */}
+                      <span className="mr-2 text-sm font-semibold text-gray-600">US:</span> {/* US: 标签样式 */}
+                      <span>{currentWord.phonetic.us}</span> {/* 美音音标 */}
+                    </div>
+                  )}
+                </div>
               </div>
 
               {/* Back Face */}
-              <div className="flashcard-face flashcard-back">
-                <div className="w-full h-full flex flex-col">
+              <div className="flashcard-face flashcard-back flex flex-col justify-start p-6">
+                <div className="w-full h-full overflow-y-auto no-scrollbar">
                   {/* 单词释义部分 */}
                   <div className="mb-4 p-4 bg-blue-50 rounded-lg">
                     <h3 className="text-lg font-semibold text-blue-800 mb-2">释义</h3>
@@ -107,29 +123,30 @@ export default function WordsPage() {
                       </div>
                     )}
                   </div>
-                </div>
 
-                {/* 词根解析部分 */}
-                {currentWord.root_analysis && (
-                  <div className="mb-4 p-4 bg-purple-50 rounded-lg">
-                    <h3 className="text-lg font-semibold text-purple-800 mb-2">词根解析</h3>
-                    <p className="text-gray-800">{currentWord.root_analysis}</p>
+                  {/* 词根解析部分 */}
+                  {currentWord.root_analysis && (
+                    <div className="mb-4 p-4 bg-purple-50 rounded-lg">
+                      <h3 className="text-lg font-semibold text-purple-800 mb-2">词根解析</h3>
+                      <p className="text-gray-800">{currentWord.root_analysis}</p>
+                    </div>
+                  )}
+
+                  {/* 例句部分 */}
+                  <div className="p-4 bg-green-50 rounded-lg">
+                    <h3 className="text-lg font-semibold text-green-800 mb-2">例句</h3>
+                    <p className="text-gray-800 italic">{currentWord.sentence_example.en}</p>
+                    <p className="text-gray-800 italic">{currentWord.sentence_example.zh}</p>
                   </div>
-                )}
-
-                {/* 例句部分 */}
-                <div className="p-4 bg-green-50 rounded-lg">
-                  <h3 className="text-lg font-semibold text-green-800 mb-2">例句</h3>
-                  <p className="text-gray-800 italic">{currentWord.sentence_example.en}</p>
-                  <p className="text-gray-800 italic">{currentWord.sentence_example.zh}</p>
                 </div>
+
               </div>
             </div>
           </div>
         </div>
 
         {/* Navigation */}
-        <div className="flex justify-between items-center">
+        <div className="flex justify-between items-center gap-16">
           <button
             onClick={prevWord}
             disabled={currentWordIndex === 0}

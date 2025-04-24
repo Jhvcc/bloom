@@ -2,7 +2,7 @@
 
 import type React from "react"
 
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import Link from "next/link"
 import { ClipboardList } from "lucide-react"
 import data from "@/lib/data"
@@ -17,34 +17,11 @@ export default function ReadingPage() {
   // Words to highlight in the text
   const highlightedWords = data.words.map((word) => word.word.toLowerCase())
 
-  useEffect(() => {
-    // Format the text with highlighted words
-    // let htmlEn = data.story.en
-    // let htmlZh = data.story.zh
-
-    // Add highlighting spans to English text
-    // highlightedWords.forEach((word) => {
-    //   const regex = new RegExp(`\\b(${word})\\b`, "gi")
-    //   htmlEn = htmlEn.replace(regex, `<span class="highlighted-word" data-word="${word}">$1</span>`)
-    // })
-
-    // Convert newlines to paragraphs
-    // htmlEn = htmlEn
-    //   .split("\n\n")
-    //   .map((para) => `<p>${para}</p>`)
-    //   .join("")
-    // htmlZh = htmlZh
-    //   .split("\n\n")
-    //   .map((para) => `<p>${para}</p>`)
-    //   .join("")
-
-    // setFormattedEnglishText(htmlEn)
-    // setFormattedChineseText(htmlZh)
-  }, [])
 
   // Handle word click to show definition
   const handleWordClick = (e: React.MouseEvent) => {
-    // const target = e.target as HTMLElement
+    const target = e.target as HTMLElement
+    console.log(target)
     // if (target.classList.contains("highlighted-word")) {
     //   const word = target.dataset.word
     //   const wordData = words.find((w) => w.word.toLowerCase() === word?.toLowerCase())
