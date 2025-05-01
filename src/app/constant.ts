@@ -73,6 +73,7 @@ story:
     - ''
 words:
   - word: ''
+    id: ''
     part_of_speech:
       adj: ''
       adv: ''

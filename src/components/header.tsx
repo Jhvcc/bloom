@@ -14,8 +14,8 @@ export default function Header() {
   const navItems = [
     { name: "单词学习", path: "/words" },
     { name: "阅读学习", path: "/reading" },
-    { name: "理解测试", path: "/quiz" },
-    { name: "学习成就", path: "/achievement" },
+    // { name: "理解测试", path: "/quiz" },
+    // { name: "学习成就", path: "/achievement" },
   ]
 
   return (

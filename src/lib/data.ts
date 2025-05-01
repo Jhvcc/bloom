@@ -1,4 +1,5 @@
 export interface Word {
+  id: string
   word: string
   phonetic: {
     uk?: string
@@ -45,6 +46,7 @@ const data: FullContent = {
   },
   "words": [
     {
+      "id": "tightly",
       "part_of_speech": {
         "adv": "紧密地，牢固地"
       },
@@ -60,6 +62,7 @@ const data: FullContent = {
       "word": "tightly"
     },
     {
+      "id": "big",
       "part_of_speech": {
         "adj": "大的，重要的"
       },
@@ -75,6 +78,7 @@ const data: FullContent = {
       "word": "big"
     },
     {
+      "id": "large",
       "part_of_speech": {
         "adj": "大的，大量的"
       },
@@ -90,6 +94,7 @@ const data: FullContent = {
       "word": "large"
     },
     {
+      "id": "think",
       "part_of_speech": {
         "v": "思考，认为"
       },
@@ -105,6 +110,7 @@ const data: FullContent = {
       "word": "think"
     },
     {
+      "id": "code",
       "part_of_speech": {
         "n": "代码，密码，法规",
         "v": "编码"
@@ -121,6 +127,7 @@ const data: FullContent = {
       "word": "code"
     },
     {
+      "id": "token",
       "part_of_speech": {
         "n": "象征，代币，凭证；（计算机领域）标记，令牌"
       },
@@ -136,6 +143,7 @@ const data: FullContent = {
       "word": "token"
     },
     {
+      "id": "count",
       "part_of_speech": {
         "n": "计数，总数",
         "v": "计算，计数，认为"
@@ -152,6 +160,7 @@ const data: FullContent = {
       "word": "count"
     },
     {
+      "id": "run",
       "part_of_speech": {
         "n": "运行，奔跑",
         "v": "运行，跑，管理"
@@ -168,6 +177,7 @@ const data: FullContent = {
       "word": "run"
     },
     {
+      "id": "layer",
       "part_of_speech": {
         "n": "层，层面",
         "v": "分层"
