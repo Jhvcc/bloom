@@ -120,25 +120,6 @@
   transform: rotateY(180deg);
 }
 
-/* Progress Bar */
-.progress-bar-container {
-  height: 4px;
-  background-color: #e5e7eb;
-  border-radius: 2px;
-  overflow: hidden;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  z-index: 40;
-}
-
-.progress-bar {
-  height: 100%;
-  background-color: #1f2937;
-  transition: width 0.3s ease-in-out;
-}
-
 /* Reading Text Highlight */
 .highlighted-word {
   background-color: #fef9c3;
