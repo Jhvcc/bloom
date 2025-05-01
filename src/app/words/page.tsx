@@ -66,7 +66,7 @@ export default function WordsPage() {
 
   return (
     <div
-      className="min-h-screen flex flex-col"
+      className="flex flex-col min-h-fit"
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
@@ -258,11 +258,11 @@ export default function WordsPage() {
             </Link>
           )}
         </div>
+      </div>
 
-        {/* Progress Bar */}
-        <div className="h-1 bg-white rounded-sm overflow-hidden fixed bottom-0 left-0 w-full z-40">
-          <div className="h-full bg-black transition-all duration-300" style={{ width: `${progress}%` }}></div>
-        </div>
+      {/* Progress Bar */}
+      <div className="h-1 bg-white rounded-sm overflow-hidden fixed bottom-0 left-0 w-full z-40">
+        <div className="h-full bg-black transition-all duration-300" style={{ width: `${progress}%` }}></div>
       </div>
     </div>
   )
