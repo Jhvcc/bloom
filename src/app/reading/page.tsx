@@ -32,25 +32,30 @@ export default function ReadingPage() {
     // }
   }
 
+  // Format text with emphasized content (wrapped in **)
+  const formatEmphasis = (text: string) => {
+    return text.replace(/\*\*(.*?)\*\*/g, '<span class="emphasized-text font-bold text-blue-700">$1</span>')
+  }
+
   // Get bilingual paragraphs for the bilingual mode
   const getBilingualParagraphs = () => {
     const englishParagraphs = data.story.en
     const chineseParagraphs = data.story.zh
 
     return englishParagraphs.map((english, index) => {
-      // Format the English paragraph with highlighted words
-      let formattedEnglish = english
+      // Format the English paragraph with highlighted words and emphasis
+      let formattedEnglish = formatEmphasis(english)
       highlightedWords.forEach((word) => {
         const regex = new RegExp(`\\b(${word})\\b`, "gi")
         formattedEnglish = formattedEnglish.replace(
           regex,
-          `<span class="highlighted-word" data-word="${word}">$1</span>`,
+          `<span class="highlighted-word cursor-pointer hover:bg-yellow-100 transition-colors duration-200" data-word="${word}">$1</span>`,
         )
       })
 
       return {
         english: formattedEnglish,
-        chinese: chineseParagraphs[index] || "",
+        chinese: formatEmphasis(chineseParagraphs[index] || ""),
       }
     })
   }
@@ -108,7 +113,7 @@ export default function ReadingPage() {
 
       {/* Reading Area */}
       <div
-        className="bg-white p-4 sm:p-6 rounded-lg shadow-md mb-8"
+        className="bg-white p-6 sm:p-8 rounded-lg shadow-md mb-8 max-w-3xl mx-auto"
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
@@ -116,22 +121,25 @@ export default function ReadingPage() {
         {/* Content Area */}
         {readingMode !== "bilingual" ? (
           <div
-            className="prose max-w-none text-base sm:text-lg leading-relaxed text-gray-800"
+            className="prose max-w-none text-lg sm:text-xl leading-loose tracking-wide text-gray-800 space-y-8"
             dangerouslySetInnerHTML={{
-              __html: readingMode === "english" ? data.story.en : data.story.zh,
+              __html: (readingMode === "english" ? data.story.en : data.story.zh)
+                .map(text => formatEmphasis(text)),
             }}
             onClick={handleWordClick}
           />
         ) : (
-          <div className="bilingual-text">
+          <div className="bilingual-text space-y-12">
             {getBilingualParagraphs().map((paragraph, index) => (
-              <div key={index} className="bilingual-pair mb-6">
+              <div key={index} className="bilingual-pair">
                 <div
-                  className="english"
+                  className="english mb-4 text-lg sm:text-xl leading-loose tracking-wide"
                   dangerouslySetInnerHTML={{ __html: paragraph.english }}
                   onClick={handleWordClick}
                 />
-                <div className="chinese">{paragraph.chinese}</div>
+                <div className="chinese text-base sm:text-lg leading-relaxed text-gray-700 pl-4 border-l-4 border-gray-200">
+                  {paragraph.chinese}
+                </div>
               </div>
             ))}
           </div>
